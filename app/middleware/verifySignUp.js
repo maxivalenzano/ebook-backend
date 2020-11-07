@@ -33,7 +33,7 @@ checkDuplicate = (req, res, next) => {
 };
 
 //Chequeamos que los reloes exitan
-checkRolesExited = (req, res, next) => {
+checkRolesExisted = (req, res, next) => {
     if (req.body.roles) {
         for (let i = 0; i < req.body.roles.length; i++) {
             if (!ROLES.includes(req.body.roles[i])) {
@@ -49,7 +49,7 @@ checkRolesExited = (req, res, next) => {
 
 const verifySignUp = {
     checkDuplicate: checkDuplicate,
-    checkRolesExited: checkRolesExited
+    checkRolesExited: checkRolesExisted
 };
 
 module.exports = verifySignUp;

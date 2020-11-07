@@ -22,12 +22,17 @@ app.get('/', (req, res) => {
     res.json({ message: 'Bienvenido a la Tienda de Libros' });
 });
 
+//rutas
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
+
 //seteo de puerto, escuchamos las requests entrantes 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server corriendo en el puerto ${PORT}.`);
 });
 
+//database
 const db = require('./app/models');
 const Rol = db.rol;
 
@@ -49,4 +54,5 @@ function initial() {
         id: 3,
         name: "admin"
     });
-}
+};
+
