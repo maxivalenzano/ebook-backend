@@ -5,13 +5,14 @@ const User = db.User;
 
 //verificamos que el token sea uno existente
 verifyToken = (req, res, next) => {
-    let token = req.headers.["x-access-token"];
+    let token = req.headers["x-access-token"];
 
     if (!token) {
         return res.status(403).send({
             message: "Token no provisto"
         });
     }
+    
     jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
             return res.status(401).send({
