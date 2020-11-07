@@ -4,18 +4,20 @@ const User = db.user;
 
 //chqueamos si los usernames o email ya exiten
 checkDuplicate = (req, res, next) => {
-    //  usernames
-    User.findOne({
-        where: {
-            username: req.body.username
-        }
-    }).then(user => {
-        if (user) {
-            res.status(400).send({
-                message: 'Disculpe, ese usuario ya se encuentra en uso'
+  // Username
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then(user => {
+    if (user) {
+      res.status(400).send({
+        message: 'Disculpe, ese usuario ya se encuentra en uso'
             });
             return
         }
+
+        //correos
         User.findOne({
             where: {
                 email: req.body.email
