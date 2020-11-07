@@ -27,3 +27,26 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server corriendo en el puerto ${PORT}.`);
 });
+
+const db = require('./app/models');
+const Rol = db.rol;
+
+db.sequelize.sync({force: true}).then(() =>{
+    console.log('Drop and Resync DB');
+    initial();
+});
+
+function initial() {
+    Rol.create({
+        id: 1,
+        name: "user"
+    });
+    Rol.create({
+        id: 2,
+        name: "moderator"
+    });
+    Rol.create({
+        id: 3,
+        name: "admin"
+    });
+}
