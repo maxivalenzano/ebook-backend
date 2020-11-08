@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "clave-super-secreta"
+  secret: "clave-super-secreta"
 };

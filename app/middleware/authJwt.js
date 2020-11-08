@@ -3,20 +3,19 @@ const config = require("../config/auth.config.js");
 const db = require("../models");
 const User = db.user;
 
-// verifica que el token sea valido
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
   if (!token) {
     return res.status(403).send({
-      message: "Token no provisto"
+      message: "No token provided!"
     });
   }
 
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
       return res.status(401).send({
-        message: "Usted no tiene autorización para ingresar"
+        message: "Unauthorized!"
       });
     }
     req.userId = decoded.id;
@@ -24,7 +23,6 @@ verifyToken = (req, res, next) => {
   });
 };
 
-//token de admin
 isAdmin = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {
@@ -36,14 +34,13 @@ isAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Se requiere Rol de Administrador"
+        message: "Require Admin Role!"
       });
       return;
     });
   });
 };
 
-//token de moderador
 isModerator = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {
@@ -55,7 +52,7 @@ isModerator = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Se requiere Rol de Moderador"
+        message: "Require Moderator Role!"
       });
     });
   });
@@ -77,7 +74,7 @@ isModeratorOrAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Se requiere Rol de Administrador o Moderador"
+        message: "Require Moderator or Admin Role!"
       });
     });
   });
