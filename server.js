@@ -20,11 +20,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 const db = require('./app/models');
 const Rol = db.rol;
 
+db.sequelize.authenticate()
+    .then(() => console.log('Conectando al servidor'))
+    .catch(error => console.log(error));
+
 db.sequelize.sync({force: true}).then(() =>{
     console.log('Drop and Resync DB');
     initial();
 });
-
 
 //rutas simples
 app.get('/', (req, res) => {
