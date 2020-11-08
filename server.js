@@ -10,13 +10,11 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-//Parsea las request a un tipo json
+// habilitamos el bodyParser para leer datos del formulario
 app.use(bodyParser.json());
-
-//parsea las request a un tipo x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 
-//database
+//crear la conexión a la BD
 const db = require('./app/models');
 const Rol = db.rol;
 
@@ -29,7 +27,7 @@ db.sequelize.sync({force: true}).then(() =>{
     initial();
 });
 
-//rutas simples
+//ruta simple
 app.get('/', (req, res) => {
     res.json({ message: 'Bienvenido a la Tienda de Libros' });
 });
@@ -38,12 +36,14 @@ app.get('/', (req, res) => {
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
-//seteo de puerto, escuchamos las requests entrantes 
+//seteo de puerto
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server corriendo en el puerto ${PORT}.`);
 });
 
+
+//temprales, para ir probando
 function initial() {
     Rol.create({
         id: 1,
