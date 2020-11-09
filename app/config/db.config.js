@@ -1,10 +1,9 @@
 module.exports = {
-    HOST: 'localhost',
-    USER: 'root',
-    PASSWORD: 'root',
-    DB: 'ebookdb',
-    dialect: 'mysql',
-    PORT: '3306',
+  HOST: "localhost",
+  USER: "root",
+  PASSWORD: "root",
+  DB: "ebookdb",
+  dialect: "mysql",
   pool: {
     max: 5,
     min: 0,
