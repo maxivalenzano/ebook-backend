@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const db = require("./app/models");
 
 const app = express();
 
@@ -16,14 +17,43 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// database
-const db = require("./app/models");
 //const Role = db.role;
+//const UserController = require("./app/controllers/tutorial.controller");
+// console.log("------------------")
+// console.log("------------------")
+// console.log("------------------")
+// const TagController = require("./app/controllers/user.controller");
+// const run = async () => {
+//   await TagController.addEbook(1, 1);
+// // >> added Tutorial id=1 to Tag id=1
+
+// await TagController.addEbook(1, 2);
+// // >> added Tutorial id=2 to Tag id=1
+
+// await TagController.addEbook(1, 3);
+// // >> added Tutorial id=3 to Tag id=1
+
+// await TagController.addEbook(2, 2);
+// // >> added Tutorial id=3 to Tag id=2
+
+// await TagController.addEbook(2, 3);
+// // >> added Tutorial id=4 to Tag id=2
+
+// await TagController.addEbook(2, 4);
+// // >> added Tutorial id=1 to Tag id=2
+// await TagController.addEbook(3, 5);
+
+// const user1 = await TagController.findById(1);
+// console.log(JSON.stringify(user1, null, 2));
+// };
+// console.log("------------------")
+// console.log("------------------")
+// console.log("------------------")
 
 db.sequelize.sync(
 //    {force: true}).then(() =>{
 //    console.log('Drop and Resync DB');
-//    initial();
+//      run()
 //}
 );
 
@@ -43,7 +73,12 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-// function initial() {
+
+
+
+//function initial() {
+
+
 //   Role.create({
 //     id: 1,
 //     name: "user"
@@ -58,4 +93,4 @@ app.listen(PORT, () => {
 //     id: 3,
 //     name: "admin"
 //   });
-// }
+//}

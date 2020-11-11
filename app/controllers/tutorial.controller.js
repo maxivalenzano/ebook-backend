@@ -167,3 +167,27 @@ exports.findAllPublished = (req, res) => {
         });
       });
   };
+
+  exports.findById = (id) => {
+    return Tutorial.findByPk(id, {
+      include: [
+        {
+          model: User,
+          as: "users",
+          attributes: ["id", "username"],
+          through: {
+            attributes: [],
+          },
+          // through: {
+          //   attributes: ["tag_id", "tutorial_id"],
+          // },
+        },
+      ],
+    })
+      .then((tutorial) => {
+        return tutorial;
+      })
+      .catch((err) => {
+        console.log(">> Error while finding Tutorial: ", err);
+      });
+  };
