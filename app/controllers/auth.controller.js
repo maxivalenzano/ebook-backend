@@ -11,6 +11,8 @@ var bcrypt = require("bcryptjs");
 exports.signup = (req, res) => {
   // Save User to Database
   User.create({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
@@ -43,7 +45,7 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
   User.findOne({
     where: {
-      username: req.body.username
+      email: req.body.email
     }
   })
     .then(user => {
@@ -59,12 +61,12 @@ exports.signin = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-          message: "Invalid Password!"
+          message: "Contraseña Incorrecta"
         });
       }
 
       var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 3600 // 60 minutos
+        expiresIn: 60 // 60 minutos
       });
 
       var authorities = [];
@@ -74,6 +76,8 @@ exports.signin = (req, res) => {
         }
         res.status(200).send({
           id: user.id,
+          firstname: user.firstname,
+          lastname: user.lastname,
           username: user.username,
           email: user.email,
           roles: authorities,

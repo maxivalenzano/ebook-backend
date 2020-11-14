@@ -8,14 +8,14 @@ verifyToken = (req, res, next) => {
 
   if (!token) {
     return res.status(403).send({
-      message: "No token provided!"
+      message: "Token no provisto"
     });
   }
 
   jwt.verify(token, config.secret, (err, decoded) => {
-    if (err) {
+    if (err) {console.log("error autenticacion, token vencido");
       return res.status(401).send({
-        message: "Unauthorized!"
+        message: "No autorizado, su token ha expirado"
       });
     }
     req.userId = decoded.id;
@@ -34,7 +34,7 @@ isAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Require Admin Role!"
+        message: "Requiere rol de Administrador!"
       });
       return;
     });
@@ -52,7 +52,7 @@ isModerator = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Require Moderator Role!"
+        message: "Requiere rol de Moderador"
       });
     });
   });
@@ -74,7 +74,7 @@ isModeratorOrAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Require Moderator or Admin Role!"
+        message: "Requiere rol de Moderador o Administrador"
       });
     });
   });
