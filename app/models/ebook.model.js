@@ -24,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
     url: {
       type: Sequelize.STRING
     },
-    photo: {
+    image: {
       type: Sequelize.STRING
     }
   });

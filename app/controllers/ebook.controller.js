@@ -28,7 +28,6 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Ebook
   const ebook = {
     title: req.body.title,
     author: req.body.author,
@@ -38,7 +37,7 @@ exports.create = (req, res) => {
     price: req.body.price,
     published: req.body.published ? req.body.published : false,
     url: req.body.url,
-    photo: req.body.photo
+    image: req.body.image
   };
 
   // Guardando libro en la DB
