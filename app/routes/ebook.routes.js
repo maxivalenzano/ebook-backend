@@ -2,25 +2,25 @@ const ebooks = require("../controllers/ebook.controller.js");
 const router = require("express").Router();
 
 module.exports = app => {
-    // Create a new Ebook
+    // Crea un libro nuevo
     router.post("/api/ebooks/", ebooks.create);
   
-    // Retrieve all Ebooks
+    // Recuperar todos los libros
     router.get("/api/ebooks/", ebooks.findAll);
   
-    // Retrieve all published Ebooks
+    // Recuperar todos los libros publicados
     router.get("/api/ebooks/published", ebooks.findAllPublished);
   
-    // Retrieve a single Ebook with id
+    // Recuperar un solo libro con id
     router.get("/api/ebooks/:id", ebooks.findOne);
   
-    // Update a Ebook with id
+    // Actualizar un libro con id
     router.put("/api/ebooks/:id", ebooks.update);
   
-    // Delete a Ebook with id
+    // Eliminar un libro con id
     router.delete("/api/ebooks/:id", ebooks.delete);
   
-    // Delete all Ebooks
+    // Eliminar todos los libros
     router.delete("/api/ebooks/", ebooks.deleteAll);
   
     app.use(router);

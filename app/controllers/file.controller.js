@@ -46,43 +46,6 @@ const download = (req, res) => {
 
 module.exports = {
     upload,
-    // getListFiles,
     download,
 };
 
-// const getListFiles = (req, res) => {
-//     const directoryPath = __basedir + "/resources/uploads/";
-
-//     fs.readdir(directoryPath, function (err, files) {
-//         if (err) {
-//             res.status(500).send({
-//                 message: "No se pueden escanear los archivos",
-//             });
-//             return;
-//         }
-
-//         let fileInfos = [];
-
-//         files.forEach((file) => {
-//             fileInfos.push({
-//                 name: file,
-//                 url: baseUrl.url + file,
-//             });
-//         });
-
-//         res.status(200).send(fileInfos);
-//     });
-// };
-
-
-// const download = (req, res) => {
-//     const fileName = req.params.name;
-//     const directoryPath = __basedir + "/resources/uploads/";
-//     fs.readFile(directoryPath + fileName, {headers: {'Content-Type': "application/pdf"}}, (err) => {
-//         if (err) {
-//             res.status(500).send({
-//                 message: "No se pudo descargar el archivo" + err,  
-//             }); return;
-//         }
-//     });
-// };

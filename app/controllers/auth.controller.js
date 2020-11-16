@@ -9,7 +9,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
-  // Save User to Database
+  // Guardar usuario en la base de datos
   User.create({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -31,7 +31,7 @@ exports.signup = (req, res) => {
           });
         });
       } else {
-        // user role = 1
+        // si solo tiene rol de usuario
         user.setRoles([1]).then(() => {
           res.send({ message: "Usuario registrado correctamente" });
         });
@@ -42,6 +42,7 @@ exports.signup = (req, res) => {
     });
 };
 
+//inicio de sesion
 exports.signin = (req, res) => {
   User.findOne({
     where: {
@@ -66,7 +67,7 @@ exports.signin = (req, res) => {
       }
 
       var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 60 // 60 minutos
+        expiresIn: 3600 // 60 minutos
       });
 
       var authorities = [];

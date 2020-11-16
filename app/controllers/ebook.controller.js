@@ -68,12 +68,12 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving ebooks."
+            err.message || "Se produjo un error al recuperar libros"
         });
       });
   };
 
-// Find a single Ebook with an id
+// buscar libro por ID
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
@@ -83,12 +83,12 @@ exports.findOne = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Ebook with id=" + id
+        message: "Error al recuperar el libro con el ID=" + id
       });
     });
 };
 
-// Update a Ebook by the id in the request
+// Actualizar un libro por id
 exports.update = (req, res) => {
   const id = req.params.id;
 
@@ -98,22 +98,22 @@ exports.update = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Ebook was updated successfully."
+          message: "El libro se actualizó correctamente"
         });
       } else {
         res.send({
-          message: `Cannot update Ebook with id=${id}. Maybe Ebook was not found or req.body is empty!`
+          message: `No se puede actualizar el libro con id=${id}. Tal vez no se encontró el libro o el req.body está vacio`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Ebook with id=" + id
+        message: "Error al actualizar el libro con id =" + id
       });
     });
 };
 
-// Delete a Ebook with the specified id in the request
+// Eliminar un libro con la ID
 exports.delete = (req, res) => {
   const id = req.params.id;
 
@@ -123,39 +123,39 @@ exports.delete = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Ebook was deleted successfully!"
+          message: "el libro se eliminó correctamente"
         });
       } else {
         res.send({
-          message: `Cannot delete Ebook with id=${id}. Maybe Ebook was not found!`
+          message: `no se pudo eliminar el libro con el=${id}`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Ebook with id=" + id
+        message: "No se pudo borrar el libro con el id =" + id
       });
     });
 };
 
-// Delete all Ebooks from the database.
+// Eliminar todos los libros de la base de datos
 exports.deleteAll = (req, res) => {
   Ebook.destroy({
     where: {},
     truncate: false
   })
     .then(nums => {
-      res.send({ message: `${nums} Ebooks were deleted successfully!` });
+      res.send({ message: `${nums} Todos los libros se eliminaron correctamente` });
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all ebooks."
+          err.message || "Se produjo un error al eliminar todos los libros"
       });
     });
 };
 
-// find all published Ebook
+// encontrar todos los libros publicados
 exports.findAllPublished = (req, res) => {
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
@@ -168,24 +168,22 @@ exports.findAllPublished = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving ebooks."
+            err.message || "Se produjo un error al encontrar los libros"
         });
       });
   };
 
+  //buscar todos los usuarios de un determinado libro
   exports.findById = (id) => {
     return Ebook.findByPk(id, {
       include: [
         {
           model: User,
           as: "users",
-          attributes: ["id", "username"],
+          attributes: ["id", "username", "email"],
           through: {
             attributes: [],
           },
-          // through: {
-          //   attributes: ["tag_id", "ebook_id"],
-          // },
         },
       ],
     })
@@ -193,6 +191,6 @@ exports.findAllPublished = (req, res) => {
         return ebook;
       })
       .catch((err) => {
-        console.log(">> Error while finding Ebook: ", err);
+        console.log("Error al encontrar el libro: ", err);
       });
   };

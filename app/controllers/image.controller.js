@@ -46,30 +46,5 @@ const download = (req, res) => {
 
 module.exports = {
     upload,
-    // getListFiles,
     download,
 };
-
-// const getListFiles = (req, res) => {
-//     const directoryPath = __basedir + "/resources/uploads/";
-
-//     fs.readdir(directoryPath, function (err, files) {
-//         if (err) {
-//             res.status(500).send({
-//                 message: "No se pueden escanear los archivos",
-//             });
-//             return;
-//         }
-
-//         let fileInfos = [];
-
-//         files.forEach((file) => {
-//             fileInfos.push({
-//                 name: file,
-//                 url: baseUrl.url + file,
-//             });
-//         });
-
-//         res.status(200).send(fileInfos);
-//     });
-// };
