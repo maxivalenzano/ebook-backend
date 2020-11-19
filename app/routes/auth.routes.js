@@ -18,6 +18,14 @@ module.exports = function(app) {
     ],
     controller.signup
   );
+  
+  app.post(
+    "/api/auth/recovery",
+    [
+      verifySignUp.checkUsernameOrEmail,
+    ],
+    controller.recovery
+  );
 
   app.post(
     "/api/auth/signin", controller.signin);

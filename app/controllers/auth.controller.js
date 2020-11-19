@@ -90,3 +90,28 @@ exports.signin = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+exports.recovery = (req, res) => {
+  const password = bcrypt.hashSync(req.body.password, 8);
+  const email = req.body.email;
+
+  User.update(
+    { password: password },
+    { where: { email: email } })
+    .then(user => {
+      if (user == 1) {
+        res.send({
+          message: "La contraseña se actualizó correctamente"
+        });
+      } else {
+        res.send({
+          message: `No se pudo actualizar el usuario con el email: ${email}`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: `Error al actualizar el usuario con el email: ${email}`
+      });
+    });
+}
