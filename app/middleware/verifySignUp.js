@@ -34,6 +34,7 @@ checkRolesExisted = (req, res, next) => {
 
   next();
 };
+
 checkUsernameOrEmail = (req, res, next) => {
   // verificamos que exista el nombre de usuario
   User.findOne({

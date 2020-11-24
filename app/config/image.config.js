@@ -1,3 +1,3 @@
 module.exports = {
-    url: "http://localhost:8080/api/images/"
+    url: "https://backend-ebook1996.herokuapp.com/api/images/"
   };

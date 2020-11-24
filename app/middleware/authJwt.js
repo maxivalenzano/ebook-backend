@@ -13,7 +13,8 @@ verifyToken = (req, res, next) => {
   }
 
   jwt.verify(token, config.secret, (err, decoded) => {
-    if (err) {console.log("error autenticacion, token vencido");
+    if (err) {
+      console.log("error autenticacion, token vencido");
       return res.status(401).send({
         message: "No autorizado, su token ha expirado"
       });
@@ -24,21 +25,23 @@ verifyToken = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
-  User.findByPk(req.userId).then(user => {
-    user.getRoles().then(roles => {
-      for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "admin") {
-          next();
-          return;
-        }
-      }
+  User.findByPk(req.userId)
+    .then(user => {
+      user.getRoles()
+        .then(roles => {
+          for (let i = 0; i < roles.length; i++) {
+            if (roles[i].name === "admin") {
+              next();
+              return;
+            }
+          }
 
-      res.status(403).send({
-        message: "Requiere rol de Administrador!"
-      });
-      return;
+          res.status(403).send({
+            message: "Requiere rol de Administrador!"
+          });
+          return;
+        });
     });
-  });
 };
 
 isModerator = (req, res, next) => {

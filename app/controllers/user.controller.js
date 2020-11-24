@@ -3,43 +3,6 @@ const db = require("../models");
 const User = db.user;
 const Ebook = db.ebook;
 
-//establecemos los valores predeterminados de la paginacion
-const getPagination = (page, size) => {
-  const limit = size ? +size : 3;
-  const offset = page ? page * limit : 0;
-
-  return { limit, offset };
-};
-
-const getPagingData = (data, page, limit) => {
-  const { count: totalItems, rows: ebooks } = data;
-  const currentPage = page ? +page : 0;
-  const totalPages = Math.ceil(totalItems / limit);
-
-  return { totalItems, ebooks, totalPages, currentPage };
-};
-
-exports.findAll = () => {
-  return User.findAll({
-    include: [
-      {
-        model: Ebook,
-        as: "ebooks",
-        attributes: ["id", "title", "description", "published"],
-        through: {
-          attributes: [],
-        }
-      },
-    ],
-  })
-    .then((user) => {
-      return user;
-    })
-    .catch((err) => {
-      console.log(">> Error mientras se buscaba los Titulos del Usuario: ", err);
-    });
-};
-
 exports.findById = (req, res) => {
   const id = req.userId;
   //console.log(req);
@@ -61,7 +24,7 @@ exports.findById = (req, res) => {
       //return user;
     })
     .catch((err) => {
-      console.log(">> Error mientras se realizaba la busqueda: ", err);
+      console.log("Error mientras se realizaba la busqueda: ", err);
     });
 };
 
@@ -83,7 +46,7 @@ exports.addEbook = (req, res) => {
 
         user.addEbook(ebook)
         .then(data => {
-          res.send(data);
+          res.status(200).send(data);
         })
         .catch(err => {
           res.status(500).send({
@@ -91,12 +54,12 @@ exports.addEbook = (req, res) => {
               err.message || "Se produjo un error al asociar el libro"
           });
         });
-        console.log(`>> Se registró el Libro id=${ebook.id}, con el usuario id=${user.id}`);
+        console.log(`Se registró el Libro id=${ebook.id}, con el usuario id=${user.id}`);
         return user;
       });
     })
     .catch((err) => {
-      console.log(">> Error durante el registro del usuario con el libro: ", err);
+      console.log("Error durante el registro del usuario con el libro: ", err);
     });
 };
 exports.allAccess = (req, res) => {

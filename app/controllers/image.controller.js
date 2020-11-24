@@ -1,5 +1,5 @@
 const baseUrl = require('../config/image.config')
-const uploadFile = require("../middleware/uploadImg");
+const uploadFile = require("../middleware/uploadIMG");
 const fs = require("fs");
 
 // guardamos el archivo
